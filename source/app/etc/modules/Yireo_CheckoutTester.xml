@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Yireo CheckoutTester-module for Magento 
+ *
+ * @package     Yireo_CheckoutTester
+ * @author      Yireo (http://www.yireo.com/)
+ * @copyright   Copyright (c) 2013 Yireo (http://www.yireo.com/)
+ * @license     Open Software License
+ */
+-->
+<config>
+    <modules>
+        <Yireo_CheckoutTester>
+            <active>true</active>
+            <codePool>community</codePool>
+        </Yireo_CheckoutTester>
+    </modules>
+</config>

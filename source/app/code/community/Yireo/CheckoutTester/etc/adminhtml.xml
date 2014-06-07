@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Yireo CheckoutTester for Magento 
+ *
+ * @package     Yireo_CheckoutTester
+ * @author      Yireo (http://www.yireo.com/)
+ * @copyright   Copyright (C) 2014 Yireo (http://www.yireo.com/)
+ * @license     Open Source License (OSL v3)
+ */
+-->
+<config>
+    <translate>
+        <modules>
+            <Yireo_CheckoutTester>
+                <files>
+                    <default>Yireo_CheckoutTester.csv</default>
+                </files>
+            </Yireo_CheckoutTester>
+        </modules>
+    </translate>
+
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <checkouttester>
+                                        <title>Yireo_CheckoutTester Settings</title>
+                                    </checkouttester>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

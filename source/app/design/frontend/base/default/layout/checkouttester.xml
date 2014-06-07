@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+    * Yireo CheckoutTester for Magento
+    *
+    * @package     Yireo_CheckoutTester
+    * @author      Yireo (http://www.yireo.com/)
+    * @copyright   Copyright (c) 2014 Yireo (http://www.yireo.com/)
+    * @license     Open Software License
+    */
+-->
+<layout version="0.1.0">
+    <checkouttester_index_success translate="label">
+        <label>One Page Checkout Success</label>
+        <reference name="root">
+            <action method="setTemplate"><template>page/2columns-right.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <block type="checkouttester/success" name="checkout.success" template="checkout/success.phtml"/>
+        </reference>
+    </checkouttester_index_success>
+</layout>

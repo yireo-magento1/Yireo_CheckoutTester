@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Yireo CheckoutTester for Magento 
+ *
+ * @package     Yireo_CheckoutTester
+ * @author      Yireo (http://www.yireo.com/)
+ * @copyright   Copyright (C) 2014 Yireo (http://www.yireo.com/)
+ * @license     Open Source License (OSL v3)
+ */
+-->
+<config>
+    <tabs>
+        <yireo translate="label" module="checkouttester">
+            <label>Yireo</label>
+            <sort_order>1000</sort_order>
+        </yireo>
+    </tabs>
+    <sections>
+        <checkouttester translate="label" module="checkouttester">
+            <label>Checkout Tester</label>
+            <tab>yireo</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>1000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <settings translate="label">
+                    <label>Default Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <order_id translate="label">
+                            <label>Sales Order ID</label>
+                            <comment><![CDATA[Numerical ID of sales-order entity]]></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </order_id>
+                        <ip translate="label">
+                            <label>Development IP</label>
+                            <comment><![CDATA[CSV-list of IP-addresses allowed access]]></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </ip>
+                    </fields>
+                </settings>
+            </groups>
+        </checkouttester>
+    </sections>
+</config>

@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Yireo CheckoutTester for Magento 
+ *
+ * @package     Yireo_CheckoutTester
+ * @author      Yireo (http://www.yireo.com/)
+ * @copyright   Copyright (C) 2014 Yireo (http://www.yireo.com/)
+ * @license     Open Source License (OSL v3)
+ */
+-->
+<config>
+
+    <modules>
+        <Yireo_CheckoutTester>
+            <version>0.0.4</version>
+        </Yireo_CheckoutTester>
+    </modules>
+
+    <global>
+        <blocks>
+            <checkouttester>
+                <class>Yireo_CheckoutTester_Block</class>
+            </checkouttester>
+        </blocks>
+
+        <helpers>
+            <checkouttester>
+                <class>Yireo_CheckoutTester_Helper</class>
+            </checkouttester>
+        </helpers>
+
+        <models>
+            <checkouttester>
+                <class>Yireo_CheckoutTester_Model</class>
+            </checkouttester>
+        </models>
+    </global>
+
+    <frontend>
+        <routers>
+            <checkouttester>
+                <use>standard</use>
+                <args>
+                    <module>Yireo_CheckoutTester</module>
+                    <frontName>checkouttester</frontName>
+                </args>
+            </checkouttester>
+        </routers>
+        <layout>
+            <updates>
+                <checkouttester>
+                    <file>checkouttester.xml</file>
+                </checkouttester>
+            </updates>
+        </layout>
+    </frontend>
+
+    <default>
+        <checkouttester>
+            <settings>
+                <order_id>0</order_id>
+                <ip></ip>
+            </settings>
+        </checkouttester>
+    </default>
+</config>
