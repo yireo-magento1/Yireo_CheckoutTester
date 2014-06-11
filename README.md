@@ -13,6 +13,7 @@ files to your Magento root. Make sure to flush the Magento cache. Make sure to l
 once you're done.
 
 3) Use modman to install the git repository for you:
+
     modman init
     modman clone https://github.com/yireo/Yireo_CheckoutTester
     modman update Yireo_CheckoutTester
