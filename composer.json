@@ -5,7 +5,24 @@
     "description": "Test and preview the Magento checkout success page",
     "authors": [
         {
-            "name": "Jisse Reitsma"
+            "name": "Yireo",
+            "email": "info@yireo.com"
         }
-    ]
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "magento/core": "1.6.2.0,"
+        "yireo/Yireo_CheckoutTester": "*",
+        "magento-hackathon/magento-composer-installer": "*"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/yireo/Yireo_CheckoutTester"
+        },
+        {
+            "type": "composer",
+            "url": "http://packages.firegento.com"
+        }
+    ],
 }
