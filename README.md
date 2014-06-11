@@ -5,6 +5,7 @@ Magento extension for testing the Magento checkout sucess page.
 More information: https://www.yireo.com/software/magento-extensions/checkout-tester
 
 You can install this module in various ways:
+
 1) Download the MagentoConnect package from our site and upload it into your own Magento
 Downloader application.
 
