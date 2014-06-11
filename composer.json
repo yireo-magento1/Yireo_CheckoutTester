@@ -1,0 +1,11 @@
+{
+    "name": "yireo/Yireo_CheckoutTester",
+    "license": "OSL-3.0",
+    "homepage": "https://github.com/yireo/Yireo_CheckoutTester",
+    "description": "Test and preview the Magento checkout success page",
+    "authors": [
+        {
+            "name": "Jisse Reitsma"
+        }
+    ]
+}
