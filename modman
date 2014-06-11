@@ -1,4 +1,4 @@
 # Modman file
 source/app/code/community/Yireo/CheckoutTester app/code/community/Yireo/CheckoutTester
-source/app/design/frontend/base/default/layout/ app/design/frontend/base/default/layout/
+source/app/design/frontend/base/default/layout/* app/design/frontend/base/default/layout/
 source/app/etc/modules/Yireo_CheckoutTester.xml app/etc/modules/
