@@ -1,7 +1,8 @@
 {
     "name": "yireo/Yireo_CheckoutTester",
     "license": "OSL-3.0",
-    "homepage": "https://github.com/yireo/Yireo_CheckoutTester",
+    "type": "magento-module",
+    "homepage": "https://www.yireo.com/software/magento-extensions/checkout-tester",
     "description": "Test and preview the Magento checkout success page",
     "authors": [
         {
@@ -11,7 +12,6 @@
     ],
     "require": {
         "php": ">=5.3.0",
-        "yireo/Yireo_CheckoutTester": "*",
         "magento-hackathon/magento-composer-installer": "*"
     },
     "repositories": [
