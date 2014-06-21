@@ -16,10 +16,6 @@
     },
     "repositories": [
         {
-            "type": "vcs",
-            "url": "https://github.com/yireo/Yireo_CheckoutTester"
-        },
-        {
             "type": "composer",
             "url": "http://packages.firegento.com"
         }
