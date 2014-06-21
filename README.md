@@ -13,9 +13,10 @@ Downloader application.
 files to your Magento root. Make sure to flush the Magento cache. Make sure to logout 
 once you're done.
 
-3) Use modman to install the git repository for you:
+3) Use `modman` to install the git repository for you:
 
     modman init
     modman clone https://github.com/yireo/Yireo_CheckoutTester
     modman update Yireo_CheckoutTester
 
+4) Use `composer` to install the composer package for you. See the file `COMPOSER.md` for hints.

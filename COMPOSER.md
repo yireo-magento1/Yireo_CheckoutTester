@@ -9,25 +9,31 @@ Next, modify your local composer.json file:
 
     {
         "require": {
-
-        },
+            "yireo/Yireo_CheckoutTester": "dev-master",
+            "magento-hackathon/magento-composer-installer": "*"
+        },    
         "repositories":[
             {
                 "packagist": false
             },
             {
                 "type":"composer",
+                "url":"http://packages.firegento.com"
+            },
+            {
+                "type":"composer",
                 "url":"http://satis.yireo.com"
             }
-       ]
+        ],
+        "extra":{
+            "magento-root-dir":"/path/to/magento",
+            "magento-deploystrategy":"copy"           
+        }
     }
 
-Test this by running:
+Make sure to set the `magento-root-dir` properly. Test this by running:
 
     composer update --no-dev
 
-Install this extension:
-
-    composer require --update-no-dev yireo/Yireo_CheckTester
-
 Done.
+
