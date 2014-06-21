@@ -1,5 +1,6 @@
 {
     "name": "yireo/Yireo_CheckoutTester",
+    "version": "0.0.4",
     "license": "OSL-3.0",
     "type": "magento-module",
     "homepage": "https://www.yireo.com/software/magento-extensions/checkout-tester",
