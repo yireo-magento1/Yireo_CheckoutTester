@@ -9,7 +9,7 @@ Next, modify your local composer.json file:
 
     {
         "require": {
-            "yireo/Yireo_CheckoutTester": "dev-master",
+            "yireo/yireo_checkout-tester": "dev-master",
             "magento-hackathon/magento-composer-installer": "*"
         },    
         "repositories":[
