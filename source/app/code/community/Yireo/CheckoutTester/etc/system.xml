@@ -52,6 +52,16 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </ip>
+                        <checkout_onepage_controller_success_action translate="label">
+                            <label>Enabled</label>
+                            <comment><![CDATA[Generate event checkout_onepage_controller_success_action]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </checkout_onepage_controller_success_action>
                     </fields>
                 </settings>
             </groups>

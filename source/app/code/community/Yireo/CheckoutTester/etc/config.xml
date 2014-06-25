@@ -13,7 +13,7 @@
 
     <modules>
         <Yireo_CheckoutTester>
-            <version>0.0.4</version>
+            <version>0.0.5</version>
         </Yireo_CheckoutTester>
     </modules>
 
@@ -61,6 +61,7 @@
             <settings>
                 <order_id>0</order_id>
                 <ip></ip>
+                <checkout_onepage_controller_success_action>0</checkout_onepage_controller_success_action>
             </settings>
         </checkouttester>
     </default>
