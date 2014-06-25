@@ -50,6 +50,7 @@ class Yireo_CheckoutTester_IndexController extends Mage_Core_Controller_Front_Ac
 
         // Load the layout
         $this->loadLayout();
+        Mage::dispatchEvent('checkout_onepage_controller_success_action', array('order_ids' => array($orderId)));
         $this->renderLayout();
     }
 }
