@@ -20,3 +20,5 @@ once you're done.
     modman update Yireo_CheckoutTester
 
 4) Use `composer` to install the composer package for you. See the file `COMPOSER.md` for hints.
+
+Bring your towel.

@@ -45,6 +45,12 @@ class Yireo_CheckoutTester_IndexController extends Mage_Core_Controller_Front_Ac
 
         // Load the order
         $order = Mage::getModel('sales/order')->load($orderId);
+        // Order on the order
+        if(!$order->getId() > 0) {
+            die('Invalid order ID');
+        }
+
+        // Load the session
         Mage::getModel('checkout/session')->setLastOrderId($order->getId())
             ->setLastRealOrderId($order->getIncrementId());
 
