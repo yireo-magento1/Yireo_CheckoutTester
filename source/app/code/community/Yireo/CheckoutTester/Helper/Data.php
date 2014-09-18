@@ -62,4 +62,14 @@ class Yireo_CheckoutTester_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return (int)Mage::getStoreConfig('checkouttester/settings/order_id');
     }
+
+    public function getLastOrderId()
+    {
+        $orders = Mage::getModel('sales/order')->getCollection()
+            ->setOrder('created_at','DESC')
+            ->setPageSize(1)
+            ->setCurPage(1);
+        $orderId = $orders->getFirstItem()->getEntityId();
+        return $orderId;
+    }
 }

@@ -36,17 +36,26 @@ class Yireo_CheckoutTester_IndexController extends Mage_Core_Controller_Front_Ac
             die('Access denied');
         }
 
-        // Load the order ID
-        $orderId = (int)Mage::helper('checkouttester')->getOrderId();
+        // Fetch variables
+        $lastOrderId = Mage::helper('checkouttester')->getLastOrderId();
         $urlId = (int)$this->getRequest()->getParam('order_id');
-        if(!empty($urlId)) {
-            $orderId = $urlId;
-        }
 
-        // Load the order
+        // Load the order from setting or URL
+        $orderId = (int)Mage::helper('checkouttester')->getOrderId();
+        if(!empty($urlId)) $orderId = $urlId;
         $order = Mage::getModel('sales/order')->load($orderId);
 
-        // Order on the order
+        // Try to use this ID as an increment ID
+        if(!$order->getId() > 0 && $orderId > $lastOrderId) {
+            $order = Mage::getModel('sales/order')->loadByIncrementId($orderId)
+        }
+
+        // Load the last order if this is still invalid
+        if(!$order->getId() > 0 && $lastOrderId > 0) {
+            $order = Mage::getModel('sales/order')->load($lastOrderId);
+        }
+
+        // Fail when there is still no order yet
         if(!$order->getId() > 0) {
             die('Invalid order ID');
         }
