@@ -47,7 +47,7 @@ class Yireo_CheckoutTester_IndexController extends Mage_Core_Controller_Front_Ac
 
         // Try to use this ID as an increment ID
         if(!$order->getId() > 0 && $orderId > $lastOrderId) {
-            $order = Mage::getModel('sales/order')->loadByIncrementId($orderId)
+            $order = Mage::getModel('sales/order')->loadByIncrementId($orderId);
         }
 
         // Load the last order if this is still invalid
