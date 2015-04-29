@@ -4,7 +4,7 @@
  *
  * @package     Yireo_CheckoutTester
  * @author      Yireo (http://www.yireo.com/)
- * @copyright   Copyright 2015 Yireo (http://www.yireo.com/)
+ * @copyright   Copyright (C) 2014 Yireo (http://www.yireo.com/)
  * @license     Open Source License (OSL v3)
  */
 
@@ -36,12 +36,20 @@ class Yireo_CheckoutTester_Helper_Data extends Mage_Core_Helper_Abstract
     {
         $ip = Mage::getStoreConfig('checkouttester/settings/ip');
         $ip = trim($ip);
-        if(!empty($ip)) {
+        /* determine real ip */
+        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+          $realIP = $_SERVER['HTTP_CLIENT_IP'];
+        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+          $realIP = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        } else {
+          $realIP = $_SERVER['REMOTE_ADDR'];
+        }
+        if(!empty($ip) && $realIP) {
             $ips = explode(',', $ip);
             foreach($ips as $ip) {
                 $ip = trim($ip);
                 if(empty($ip)) continue;
-                if($ip == $_SERVER['REMOTE_ADDR']) {
+                if($ip == $realIP) {
                     return true;
                 }
             }
