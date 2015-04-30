@@ -1,6 +1,6 @@
 <?php
 /**
- * Yireo CheckoutTester for Magento 
+ * Yireo CheckoutTester for Magento
  *
  * @package     Yireo_CheckoutTester
  * @author      Yireo (http://www.yireo.com/)
@@ -13,43 +13,39 @@
  */
 class Yireo_CheckoutTester_Helper_Data extends Mage_Core_Helper_Abstract
 {
-    /*
+    /**
      * Switch to determine whether this extension is enabled or not
-     * 
-     * @access public
-     * @param null
-     * @return string
+     *
+     * @return bool
      */
     public function enabled()
     {
         return true;
     }
 
-    /*
+    /**
      * Method to determine whether the current user has access to this page
-     * 
-     * @access public
-     * @param null
-     * @return string
+     *
+     * @return bool
      */
     public function hasAccess()
     {
         $ip = Mage::getStoreConfig('checkouttester/settings/ip');
         $ip = trim($ip);
-        /* determine real ip */
-        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
-          $realIP = $_SERVER['HTTP_CLIENT_IP'];
-        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-          $realIP = $_SERVER['HTTP_X_FORWARDED_FOR'];
-        } else {
-          $realIP = $_SERVER['REMOTE_ADDR'];
-        }
-        if(!empty($ip) && $realIP) {
+
+        $realIp = $this->getIpAddress();
+
+        if (!empty($ip) && $realIp) {
             $ips = explode(',', $ip);
-            foreach($ips as $ip) {
+
+            foreach ($ips as $ip) {
                 $ip = trim($ip);
-                if(empty($ip)) continue;
-                if($ip == $realIP) {
+
+                if (empty($ip)) {
+                    continue;
+                }
+
+                if ($ip == $realIp) {
                     return true;
                 }
             }
@@ -59,25 +55,57 @@ class Yireo_CheckoutTester_Helper_Data extends Mage_Core_Helper_Abstract
         return true;
     }
 
-    /*
-     * Return the order ID
-     * 
-     * @access public
-     * @param null
-     * @return string
+    /**
+     * Get the current IP address
+     *
+     * @return mixed
      */
-    public function getOrderId()
+    public function getIpAddress()
     {
-        return (int)Mage::getStoreConfig('checkouttester/settings/order_id');
+        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+            $ip = $_SERVER['HTTP_CLIENT_IP'];
+
+        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+
+        } else {
+            $ip = $_SERVER['REMOTE_ADDR'];
+        }
+
+        return $ip;
     }
 
-    public function getLastOrderId()
+    /**
+     * Return the order ID
+     *
+     * @return string
+     */
+    public function getOrderIdFromConfig()
+    {
+        return (int) Mage::getStoreConfig('checkouttester/settings/order_id');
+    }
+
+    /**
+     * Return the last order ID in this database
+     *
+     * @return int
+     */
+    public function getLastInsertedOrderId()
     {
         $orders = Mage::getModel('sales/order')->getCollection()
-            ->setOrder('created_at','DESC')
+            ->setOrder('created_at', 'DESC')
             ->setPageSize(1)
             ->setCurPage(1);
-        $orderId = $orders->getFirstItem()->getEntityId();
-        return $orderId;
+
+        if (empty($orders)) {
+            return 0;
+        }
+
+        $firstOrder = $orders->getFirstItem();
+        if (empty($firstOrder)) {
+            return 0;
+        }
+
+        return (int) $firstOrder->getEntityId();
     }
 }

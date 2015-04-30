@@ -1,6 +1,6 @@
 <?php
 /**
- * Yireo CheckoutTester for Magento 
+ * Yireo CheckoutTester for Magento
  *
  * @package     Yireo_CheckoutTester
  * @author      Yireo (http://www.yireo.com/)
@@ -17,64 +17,119 @@
 class Yireo_CheckoutTester_IndexController extends Mage_Core_Controller_Front_Action
 {
     /**
-     * Empty page
-     *
+     * Empty page action
      */
     public function indexAction()
     {
-        echo 'not implemented';exit;
+        echo 'not implemented';
+        exit;
     }
 
     /**
-     * Success page
-     *
+     * Success page action
      */
     public function successAction()
     {
         // Check access
-        if(Mage::helper('checkouttester')->hasAccess() == false) {
+        if (Mage::helper('checkouttester')->hasAccess() == false) {
             die('Access denied');
         }
 
-        // Fetch variables
-        $lastOrderId = Mage::helper('checkouttester')->getLastOrderId();
-        $urlId = (int)$this->getRequest()->getParam('order_id');
+        // Fetch the order
+        $order = $this->getOrder();
 
-        // Load the order from setting or URL
-        $orderId = (int)Mage::helper('checkouttester')->getOrderId();
-        if(!empty($urlId)) $orderId = $urlId;
-        $order = Mage::getModel('sales/order')->load($orderId);
-
-        // Try to use this ID as an increment ID
-        if(!$order->getId() > 0 && $orderId > $lastOrderId) {
-            $order = Mage::getModel('sales/order')->loadByIncrementId($orderId);
-        }
-
-        // Load the last order if this is still invalid
-        if(!$order->getId() > 0 && $lastOrderId > 0) {
-            $order = Mage::getModel('sales/order')->load($lastOrderId);
-        }
-
-        // Fail when there is still no order yet
-        if(!$order->getId() > 0) {
+        // Fail when there is no valid order
+        if ($order == false) {
             die('Invalid order ID');
         }
 
-        Mage::register('current_order', $order);
-
-        // Load the session
-        Mage::getModel('checkout/session')->setLastOrderId($order->getId())
-            ->setLastRealOrderId($order->getIncrementId());
+        // Register this order
+        $this->registerOrder($order);
 
         // Load the layout
         $this->loadLayout();
 
-        // Optionally dispatch an event
-        if((bool)Mage::getStoreConfig('checkouttester/settings/checkout_onepage_controller_success_action')) {
-            Mage::dispatchEvent('checkout_onepage_controller_success_action', array('order_ids' => array($orderId)));
-        }
-
         // Render the layout
         $this->renderLayout();
+    }
+
+    /**
+     * Method to fetch the current order
+     *
+     * @return Mage_Sales_Model_Order | false
+     */
+    protected function getOrder()
+    {
+        $orderIdFromUrl = (int)$this->getRequest()->getParam('order_id');
+        $order = $this->loadOrder($orderIdFromUrl);
+        if ($order) {
+            return $order;
+        }
+
+        $orderIdFromConfig = (int)Mage::helper('checkouttester')->getOrderIdFromConfig();
+        $order = $this->loadOrder($orderIdFromConfig);
+        if ($order) {
+            return $order;
+        }
+
+        $lastOrderId = Mage::helper('checkouttester')->getLastInsertedOrderId();
+        $order = $this->loadOrder($lastOrderId);
+        if ($order) {
+            return $order;
+        }
+
+        return false;
+    }
+
+    /**
+     * Method to try to load an order from an unvalidated ID
+     *
+     * @param int $orderId
+     *
+     * @return Mage_Sales_Model_Order | false
+     */
+    protected function loadOrder($orderId)
+    {
+        $order = Mage::getModel('sales/order')->load($orderId);
+        if ($order->getId() > 0) {
+            return $order;
+        }
+
+        $order = Mage::getModel('sales/order')->loadByIncrementId($orderId);
+        if ($order->getId() > 0) {
+            return $order;
+        }
+
+        return false;
+    }
+
+    /**
+     * Method to register the order in this session
+     *
+     * @param Mage_Sales_Model_Order $order
+     */
+    protected function registerOrder($order)
+    {
+        // Register this order as the current order
+        Mage::register('current_order', $order);
+
+        // Load the session with this order
+        Mage::getModel('checkout/session')->setLastOrderId($order->getId())
+            ->setLastRealOrderId($order->getIncrementId());
+
+        // Optionally dispatch an event
+        $this->dispatchEvents($order);
+    }
+
+    /**
+     * Method to optionally dispatch order-related events
+     *
+     * @param Mage_Sales_Model_Order $order
+     */
+    public function dispatchEvents($order)
+    {
+        if ((bool)Mage::getStoreConfig('checkouttester/settings/checkout_onepage_controller_success_action')) {
+            Mage::dispatchEvent('checkout_onepage_controller_success_action', array('order_ids' => array($order->getId())));
+        }
     }
 }
