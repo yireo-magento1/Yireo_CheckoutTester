@@ -43,11 +43,11 @@ class Yireo_CheckoutTester_IndexController extends Mage_Core_Controller_Front_Ac
             die('Invalid order ID');
         }
 
-        // Register this order
-        $this->registerOrder($order);
-
         // Load the layout
         $this->loadLayout();
+
+        // Register this order
+        $this->registerOrder($order);
 
         // Render the layout
         $this->renderLayout();
