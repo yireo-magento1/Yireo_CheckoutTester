@@ -11,5 +11,8 @@
 <layout version="0.1.0">
     <checkouttester_index_success translate="label">
         <update handle="checkout_onepage_success" />
+		<reference name="root">
+			<action method="addBodyClass"><value>checkout_onepage_success</value></action>
+		</reference>
     </checkouttester_index_success>
 </layout>
