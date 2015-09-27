@@ -21,8 +21,7 @@ class Yireo_CheckoutTester_IndexController extends Mage_Core_Controller_Front_Ac
      */
     public function indexAction()
     {
-        echo 'not implemented';
-        exit;
+        // Not implemented
     }
 
     /**
@@ -111,7 +110,10 @@ class Yireo_CheckoutTester_IndexController extends Mage_Core_Controller_Front_Ac
     protected function registerOrder($order)
     {
         // Register this order as the current order
-        Mage::register('current_order', $order);
+        $currentOrder = Mage::registry('current_order');
+        if (empty($currentOrder)) {
+            Mage::register('current_order', $order);
+        }
 
         // Load the session with this order
         Mage::getModel('checkout/session')->setLastOrderId($order->getId())

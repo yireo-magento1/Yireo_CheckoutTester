@@ -20,6 +20,10 @@ class Yireo_CheckoutTester_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function enabled()
     {
+        if ((bool)Mage::getStoreConfig('advanced/modules_disable_output/Yireo_CheckoutTester')) {
+            return false;
+        }
+
         return true;
     }
 
