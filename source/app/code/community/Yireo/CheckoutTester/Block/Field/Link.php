@@ -37,7 +37,25 @@ class Yireo_CheckoutTester_Block_Field_Link extends Mage_Adminhtml_Block_System_
      */
     public function getFrontendLink()
     {
-        $storeId = Mage::app()->getWebsite(true)->getDefaultGroup()->getDefaultStoreId();
+        $storeId = $this->_getStoreId();
         return Mage::app()->getStore($storeId)->getUrl('checkouttester/index/success');
+    }
+
+    /**
+     * Return store id of current configuration scope
+     *
+     * @return int
+     */
+    protected function _getStoreId()
+    {
+        $storeId = Mage::getSingleton('adminhtml/config_data')->getStore();
+        if ($storeId) {
+            return $storeId;
+        }
+        $websiteId = Mage::getSingleton('adminhtml/config_data')->getWebsite();
+        if ($websiteId) {
+            return Mage::app()->getWebsite($websiteId)->getDefaultStore()->getId();
+        }
+        return Mage::app()->getWebsite(true)->getDefaultGroup()->getDefaultStoreId();
     }
 }
