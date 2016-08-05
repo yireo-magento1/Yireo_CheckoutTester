@@ -3,8 +3,8 @@
  * Yireo CheckoutTester for Magento
  *
  * @package     Yireo_CheckoutTester
- * @author      Yireo (http://www.yireo.com/)
- * @copyright   Copyright 2015 Yireo (http://www.yireo.com/)
+ * @author      Yireo (https://www.yireo.com/)
+ * @copyright   Copyright 2015 Yireo (https://www.yireo.com/)
  * @license     Open Source License (OSL v3)
  */
 
@@ -42,11 +42,11 @@ class Yireo_CheckoutTester_IndexController extends Mage_Core_Controller_Front_Ac
             die('Invalid order ID');
         }
 
-        // Load the layout
-        $this->loadLayout();
-
         // Register this order
         $this->registerOrder($order);
+
+        // Load the layout
+        $this->loadLayout();
 
         // Render the layout
         $this->renderLayout();
