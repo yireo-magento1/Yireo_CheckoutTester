@@ -4,7 +4,7 @@
  *
  * @author Yireo
  * @package CheckoutTester
- * @copyright Copyright 2015
+ * @copyright Copyright 2016
  * @license Open Source License (OSL v3)
  * @link https://www.yireo.com
  */
