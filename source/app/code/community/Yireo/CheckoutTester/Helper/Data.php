@@ -4,7 +4,7 @@
  *
  * @package     Yireo_CheckoutTester
  * @author      Yireo (https://www.yireo.com/)
- * @copyright   Copyright (C) 2014 Yireo (https://www.yireo.com/)
+ * @copyright   Copyright (C) 2016 Yireo (https://www.yireo.com/)
  * @license     Open Source License (OSL v3)
  */
 
@@ -14,13 +14,26 @@
 class Yireo_CheckoutTester_Helper_Data extends Mage_Core_Helper_Abstract
 {
     /**
+     * @var Mage_Sales_Model_Order
+     */
+    protected $order;
+
+    /**
+     * Yireo_CheckoutTester_Helper_Data constructor.
+     */
+    public function __construct()
+    {
+        $this->order = Mage::getModel('sales/order');
+    }
+
+    /**
      * Switch to determine whether this extension is enabled or not
      *
      * @return bool
      */
     public function enabled()
     {
-        if ((bool)Mage::getStoreConfig('advanced/modules_disable_output/Yireo_CheckoutTester')) {
+        if ((bool)$this->getStoreConfig('advanced/modules_disable_output/Yireo_CheckoutTester')) {
             return false;
         }
 
@@ -34,7 +47,7 @@ class Yireo_CheckoutTester_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function hasAccess()
     {
-        $ip = Mage::getStoreConfig('checkouttester/settings/ip');
+        $ip = $this->getStoreConfig('checkouttester/settings/ip');
         $ip = trim($ip);
 
         $realIp = $this->getIpAddress();
@@ -86,7 +99,7 @@ class Yireo_CheckoutTester_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getOrderIdFromConfig()
     {
-        return (int) Mage::getStoreConfig('checkouttester/settings/order_id');
+        return (int)$this->getStoreConfig('checkouttester/settings/order_id');
     }
 
     /**
@@ -96,7 +109,8 @@ class Yireo_CheckoutTester_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function getLastInsertedOrderId()
     {
-        $orders = Mage::getModel('sales/order')->getCollection()
+        /** @var Mage_Sales_Model_Resource_Order_Collection $orders */
+        $orders = $this->order->getCollection()
             ->setOrder('created_at', 'DESC')
             ->setPageSize(1)
             ->setCurPage(1);
@@ -105,11 +119,23 @@ class Yireo_CheckoutTester_Helper_Data extends Mage_Core_Helper_Abstract
             return 0;
         }
 
+        /** @var Mage_Sales_Model_Order $firstOrder */
         $firstOrder = $orders->getFirstItem();
         if (empty($firstOrder)) {
             return 0;
         }
 
-        return (int) $firstOrder->getEntityId();
+        return (int)$firstOrder->getEntityId();
+    }
+
+    /**
+     * @param $path
+     * @param null $default
+     *
+     * @return mixed
+     */
+    protected function getStoreConfig($path, $default = null)
+    {
+        return Mage::getStoreConfig($path, $default);
     }
 }
