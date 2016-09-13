@@ -33,6 +33,10 @@ class Yireo_CheckoutTester_IndexController extends Mage_Core_Controller_Front_Ac
         if (Mage::helper('checkouttester')->hasAccess() == false) {
             die('Access denied');
         }
+        // Check if module output is enabled
+        if (!Mage::helper('checkouttester')->enabled()) {
+            die('Module output disabled');
+        }
 
         // Fetch the order
         $order = $this->getOrder();
