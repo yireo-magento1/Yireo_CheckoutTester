@@ -47,6 +47,7 @@
                 </args>
             </checkouttester>
         </routers>
+
         <layout>
             <updates>
                 <checkouttester>
@@ -56,11 +57,23 @@
         </layout>
     </frontend>
 
+    <adminhtml>
+        <events>
+            <controller_action_predispatch>
+                <observers>
+                    <checkouttester_addFeed>
+                        <class>Yireo_CheckoutTester_Model_Observer_AddFeed</class>
+                        <method>execute</method>
+                    </checkouttester_addFeed>
+                </observers>
+            </controller_action_predispatch>
+        </events>
+    </adminhtml>
+
     <default>
         <checkouttester>
             <settings>
                 <order_id>0</order_id>
-                <ip></ip>
                 <checkout_onepage_controller_success_action>0</checkout_onepage_controller_success_action>
             </settings>
         </checkouttester>

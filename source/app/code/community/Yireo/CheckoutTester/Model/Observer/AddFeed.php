@@ -12,17 +12,21 @@
 /**
  * CheckoutTester observer to various Magento events
  */
-class Yireo_CheckoutTester_Model_Observer
+class Yireo_CheckoutTester_Model_Observer_AddFeed
 {
     /**
      * Method fired on the event <controller_action_predispatch>
      *
      * @param Varien_Event_Observer $observer
-     * @return Yireo_CheckoutTester_Model_Observer
-     * @deprecated
+     *
+     * @return Yireo_CheckoutTester_Model_Observer_AddFeed
+     * @event controller_action_predispatch
      */
-    public function controllerActionPredispatch($observer)
+    public function execute($observer)
     {
+        // Run the feed
+        Mage::getModel('checkouttester/feed')->updateIfAllowed();
+
         return $this;
     }
 }
