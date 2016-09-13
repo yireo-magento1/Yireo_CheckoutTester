@@ -52,24 +52,25 @@ class Yireo_CheckoutTester_Helper_Data extends Mage_Core_Helper_Abstract
 
         $realIp = $this->getIpAddress();
 
-        if (!empty($ip) && $realIp) {
-            $ips = explode(',', $ip);
-
-            foreach ($ips as $ip) {
-                $ip = trim($ip);
-
-                if (empty($ip)) {
-                    continue;
-                }
-
-                if ($ip == $realIp) {
-                    return true;
-                }
-            }
-            return false;
+        if (empty($ip) || empty($realIp)) {
+            return true;
         }
 
-        return true;
+        $ips = explode(',', $ip);
+
+        foreach ($ips as $ip) {
+            $ip = trim($ip);
+
+            if (empty($ip)) {
+                continue;
+            }
+
+            if ($ip == $realIp) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -80,16 +81,14 @@ class Yireo_CheckoutTester_Helper_Data extends Mage_Core_Helper_Abstract
     public function getIpAddress()
     {
         if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
-            $ip = $_SERVER['HTTP_CLIENT_IP'];
-
-        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-
-        } else {
-            $ip = $_SERVER['REMOTE_ADDR'];
+            return $_SERVER['HTTP_CLIENT_IP'];
         }
 
-        return $ip;
+        if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            return $_SERVER['HTTP_X_FORWARDED_FOR'];
+        }
+
+        return $_SERVER['REMOTE_ADDR'];
     }
 
     /**
