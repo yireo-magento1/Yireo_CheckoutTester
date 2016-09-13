@@ -17,6 +17,33 @@
 class Yireo_CheckoutTester_IndexController extends Mage_Core_Controller_Front_Action
 {
     /**
+     * @var Yireo_CheckoutTester_Helper_Data
+     */
+    protected $helper;
+
+    /**
+     * @var Mage_Sales_Model_Order
+     */
+    protected $orderModel;
+
+    /**
+     * @var Mage_Checkout_Model_Session
+     */
+    protected $checkoutSession;
+
+    /**
+     * Semiconstructor
+     */
+    protected function _construct()
+    {
+        $this->helper = Mage::helper('checkouttester');
+        $this->orderModel = Mage::getModel('sales/order');
+        $this->checkoutSession = Mage::getModel('checkout/session');
+
+        parent::_construct();
+    }
+
+    /**
      * Empty page action
      */
     public function indexAction()
@@ -30,11 +57,11 @@ class Yireo_CheckoutTester_IndexController extends Mage_Core_Controller_Front_Ac
     public function successAction()
     {
         // Check access
-        if (Mage::helper('checkouttester')->hasAccess() == false) {
+        if ($this->helper->hasAccess() == false) {
             die('Access denied');
         }
         // Check if module output is enabled
-        if (!Mage::helper('checkouttester')->enabled()) {
+        if (!$this->helper->enabled()) {
             die('Module output disabled');
         }
 
@@ -42,7 +69,7 @@ class Yireo_CheckoutTester_IndexController extends Mage_Core_Controller_Front_Ac
         $order = $this->getOrder();
 
         // Fail when there is no valid order
-        if ($order == false) {
+        if ($order === false) {
             die('Invalid order ID');
         }
 
@@ -69,13 +96,13 @@ class Yireo_CheckoutTester_IndexController extends Mage_Core_Controller_Front_Ac
             return $order;
         }
 
-        $orderIdFromConfig = (int)Mage::helper('checkouttester')->getOrderIdFromConfig();
+        $orderIdFromConfig = (int)$this->helper->getOrderIdFromConfig();
         $order = $this->loadOrder($orderIdFromConfig);
         if ($order) {
             return $order;
         }
 
-        $lastOrderId = Mage::helper('checkouttester')->getLastInsertedOrderId();
+        $lastOrderId = $this->helper->getLastInsertedOrderId();
         $order = $this->loadOrder($lastOrderId);
         if ($order) {
             return $order;
@@ -93,12 +120,12 @@ class Yireo_CheckoutTester_IndexController extends Mage_Core_Controller_Front_Ac
      */
     protected function loadOrder($orderId)
     {
-        $order = Mage::getModel('sales/order')->load($orderId);
+        $order = $this->orderModel->load($orderId);
         if ($order->getId() > 0) {
             return $order;
         }
 
-        $order = Mage::getModel('sales/order')->loadByIncrementId($orderId);
+        $order = $this->orderModel->loadByIncrementId($orderId);
         if ($order->getId() > 0) {
             return $order;
         }
@@ -120,7 +147,7 @@ class Yireo_CheckoutTester_IndexController extends Mage_Core_Controller_Front_Ac
         }
 
         // Load the session with this order
-        Mage::getModel('checkout/session')->setLastOrderId($order->getId())
+        $this->checkoutSession->setLastOrderId($order->getId())
             ->setLastRealOrderId($order->getIncrementId());
 
         // Optionally dispatch an event

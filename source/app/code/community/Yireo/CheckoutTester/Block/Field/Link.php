@@ -52,10 +52,12 @@ class Yireo_CheckoutTester_Block_Field_Link extends Mage_Adminhtml_Block_System_
         if ($storeId) {
             return $storeId;
         }
+
         $websiteId = Mage::getSingleton('adminhtml/config_data')->getWebsite();
         if ($websiteId) {
             return Mage::app()->getWebsite($websiteId)->getDefaultStore()->getId();
         }
+
         return Mage::app()->getWebsite(true)->getDefaultGroup()->getDefaultStoreId();
     }
 }
