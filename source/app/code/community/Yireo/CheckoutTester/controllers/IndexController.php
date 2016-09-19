@@ -38,9 +38,18 @@ class Yireo_CheckoutTester_IndexController extends Mage_Core_Controller_Front_Ac
     {
         $this->helper = Mage::helper('checkouttester');
         $this->orderModel = Mage::getModel('sales/order');
-        $this->checkoutSession = Mage::getModel('checkout/session');
 
         parent::_construct();
+    }
+
+    /**
+     * @return Mage_Checkout_Model_Session
+     */
+    public function getCheckoutSession() {
+        if(!$this->checkoutSession) {
+            $this->checkoutSession = Mage::getModel('checkout/session');
+        }
+        return $this->checkoutSession;
     }
 
     /**
@@ -147,7 +156,7 @@ class Yireo_CheckoutTester_IndexController extends Mage_Core_Controller_Front_Ac
         }
 
         // Load the session with this order
-        $this->checkoutSession->setLastOrderId($order->getId())
+        $this->getCheckoutSession()->setLastOrderId($order->getId())
             ->setLastRealOrderId($order->getIncrementId());
 
         // Optionally dispatch an event
