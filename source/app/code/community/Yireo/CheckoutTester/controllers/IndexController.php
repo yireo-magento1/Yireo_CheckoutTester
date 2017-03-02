@@ -88,6 +88,9 @@ class Yireo_CheckoutTester_IndexController extends Mage_Core_Controller_Front_Ac
         // Load the layout
         $this->loadLayout();
 
+        // Optionally dispatch an event
+        $this->dispatchEvents($order);
+        
         // Render the layout
         $this->renderLayout();
     }
@@ -159,8 +162,6 @@ class Yireo_CheckoutTester_IndexController extends Mage_Core_Controller_Front_Ac
         $this->getCheckoutSession()->setLastOrderId($order->getId())
             ->setLastRealOrderId($order->getIncrementId());
 
-        // Optionally dispatch an event
-        $this->dispatchEvents($order);
     }
 
     /**
