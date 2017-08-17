@@ -21,4 +21,40 @@ once you're done.
 
 4) Use `composer` to install the composer package for you. See the file `COMPOSER.md` for hints.
 
+# Instructions for using composer
+
+Use composer to install this extension. First make sure to initialize composer with the right settings:
+
+    composer -n init
+    composer install --no-dev
+
+Next, modify your local composer.json file:
+
+    {
+        "require": {
+            "yireo/magento1-checkout-tester": "*",
+            "magento-hackathon/magento-composer-installer": "*"
+        },    
+        "repositories":[
+            {
+                "type":"composer",
+                "url":"https://packages.firegento.com"
+            },
+            {
+                "type":"composer",
+                "url":"https://satis.yireo.com"
+            }
+        ],
+        "extra":{
+            "magento-root-dir":"/path/to/magento",
+            "magento-deploystrategy":"copy"           
+        }
+    }
+
+Make sure to set the `magento-root-dir` properly. Test this by running:
+
+    composer update --no-dev
+
+Done.
+
 Bring your towel.
