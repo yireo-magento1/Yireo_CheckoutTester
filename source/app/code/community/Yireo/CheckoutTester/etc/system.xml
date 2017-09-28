@@ -45,7 +45,9 @@
                         </order_id>
                         <ip translate="label">
                             <label>Development IP</label>
-                            <comment><![CDATA[CSV-list of IP-addresses allowed access]]></comment>
+                            <comment>
+                                <model>Yireo_CheckoutTester_Model_Ip</model>
+                            </comment>
                             <frontend_type>text</frontend_type>
                             <sort_order>2</sort_order>
                             <show_in_default>1</show_in_default>
